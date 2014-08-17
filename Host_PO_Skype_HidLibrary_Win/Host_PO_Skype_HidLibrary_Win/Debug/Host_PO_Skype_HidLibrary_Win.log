@@ -1,0 +1,66 @@
+﻿Build started 20.03.2014 22:58:32.
+     1>Project "F:\VebCam\Host_PO_Skype_HidLibrary_Win\Host_PO_Skype_HidLibrary_Win\Host_PO_Skype_HidLibrary_Win.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(33): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(105): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(106): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(109): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(136): warning C4244: 'argument' : conversion from 'float' to 'DWORD', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(137): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(138): warning C4244: '=' : conversion from 'float' to 'char', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(143): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(152): warning C4244: 'argument' : conversion from 'float' to 'DWORD', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(153): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(154): warning C4244: '=' : conversion from 'float' to 'char', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(159): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(173): warning C4244: 'argument' : conversion from 'float' to 'DWORD', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(174): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(175): warning C4244: '=' : conversion from 'float' to 'char', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(180): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(189): warning C4244: 'argument' : conversion from 'float' to 'DWORD', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(190): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(191): warning C4244: '=' : conversion from 'float' to 'char', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(196): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(211): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\main.cpp(118): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(191) : see declaration of 'strncpy'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\main.cpp(119): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(191) : see declaration of 'strncpy'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\main.cpp(130): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(191) : see declaration of 'strncpy'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\main.cpp(132): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\hidlibrary.h(122): warning C4996: 'wcstombs': This function or variable may be unsafe. Consider using wcstombs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\stdlib.h(554) : see declaration of 'wcstombs'
+                 f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\hidlibrary.h(105) : while compiling class template member function 'int HIDLibrary<T>::EnumerateHIDDevices(void)'
+                 with
+                 [
+                     T=Device::dataexchange_t
+                 ]
+                 f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(80) : see reference to function template instantiation 'int HIDLibrary<T>::EnumerateHIDDevices(void)' being compiled
+                 with
+                 [
+                     T=Device::dataexchange_t
+                 ]
+                 f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\workwhithdevice(exp).h(21) : see reference to class template instantiation 'HIDLibrary<T>' being compiled
+                 with
+                 [
+                     T=Device::dataexchange_t
+                 ]
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\hidlibrary.h(125): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(115) : see declaration of 'strcat'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\hidlibrary.h(127): warning C4996: 'wcstombs': This function or variable may be unsafe. Consider using wcstombs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\stdlib.h(554) : see declaration of 'wcstombs'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\hidlibrary.h(132): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(110) : see declaration of 'strcpy'
+     1>f:\vebcam\host_po_skype_hidlibrary_win\host_po_skype_hidlibrary_win\main.cpp(144): warning C4715: 'ComandToDevice' : not all control paths return a value
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\VebCam\Host_PO_Skype_HidLibrary_Win\Debug\Host_PO_Skype_HidLibrary_Win.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\VebCam\Host_PO_Skype_HidLibrary_Win\Debug\Host_PO_Skype_HidLibrary_Win.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\VebCam\Host_PO_Skype_HidLibrary_Win\Debug\Host_PO_Skype_HidLibrary_Win.lib" /MACHINE:X86 Debug\Main.obj
+         Host_PO_Skype_HidLibrary_Win.vcxproj -> F:\VebCam\Host_PO_Skype_HidLibrary_Win\Debug\Host_PO_Skype_HidLibrary_Win.exe
+     1>Done Building Project "F:\VebCam\Host_PO_Skype_HidLibrary_Win\Host_PO_Skype_HidLibrary_Win\Host_PO_Skype_HidLibrary_Win.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.90
