@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://habrahabr.ru/sandbox/79829/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta content="width=1024" name="viewport">
+
+
+    <title>Часть 1. HID устройсво для вращения камеры / Песочница / Хабрахабр</title>
+
+    <meta name="yandex-verification" content="67d46b975fa41645"> <!-- яндекс вебмастер - верификация -->
+
+    
+    
+
+    
+
+
+    <link href="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/global_main.css" rel="stylesheet" media="all">
+    <script id="an.yandex.ru/resource/context_static_r956.js" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/context_static_r956.js"></script><script async="" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/fbevents.js"></script><script type="text/javascript" async="" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/watch.js"></script><script src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/context.js" type="text/javascript" async=""></script><script async="" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/analytics.js"></script><script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/global_main.js"></script>
+      <link href="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/posts.css" rel="stylesheet" media="all">
+  <link href="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/highlight.css" rel="stylesheet" media="all">
+  <link href="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/forms.css" rel="stylesheet" media="all">
+
+    <link href="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/printer.css" rel="stylesheet" media="print">
+
+    
+    
+
+
+
+
+      <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/posts.js"></script><style type="text/css"></style>
+  <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/jquery.form.js"></script>
+  <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/highlight.js"></script>
+  <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/all.js"></script>
+  <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/sandbox.js"></script>
+
+
+      <!-- www.criteo.com/ru -->
+<script type="text/javascript">
+  var crtg_nid="2580";
+  var crtg_cookiename="cto_rtt";
+  var crtg_varname="crtg_content";
+  function crtg_getCookie(c_name){
+    var i,x,y,ARRCookies=document.cookie.split(";");
+    for(i=0;i<ARRCookies.length;i++){
+      x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+      y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if(x==c_name){return unescape(y);}
+    }
+    return'';
+  }
+  var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+  var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+  var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+  if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else
+  if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+</script><script type="text/javascript" src="http://rtax.criteo.com/delivery/rta/rta.js?netId=2580&cookieName=cto_rtt&rnd=66044067194&varName=crtg_content" async=""></script>
+      <script>
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random()*N+1);
+      </script>
+      <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/adriver.core.2.js"></script>
+
+    
+
+    <script src="https://habracdn.net/habr/javascripts/1442412683/_parts/advertising.js"></script>
+
+<script type="text/javascript">
+
+  if (typeof adbl == 'undefined')
+  {
+    var adbl = 'yes';
+  }
+
+  var user_type = 'habrauser';
+
+  var page_type = "other";
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-726094-1',  'auto', { 'userId': '60eb4c67d58f549c538bdc44c84b484b' });
+  ga('create', 'UA-726094-24', 'auto', { 'userId': '60eb4c67d58f549c538bdc44c84b484b', 'name': 'HGM' });
+
+  ga('require', 'displayfeatures');
+  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+
+
+  ga('set', 'dimension4', adbl);
+
+  ga('set', 'dimension5', page_type);
+
+
+  if(typeof removeUtms === 'undefined') {
+    removeUtms = function(){};
+  }
+
+  ga('HGM.set', 'dimension1', user_type);
+  ga('HGM.set', 'dimension2', "habrahabr");
+  ga('HGM.send', 'pageview');
+
+  ga('send', 'pageview', { 'hitCallback': removeUtms });
+
+
+</script>
+
+
+    <meta content="Хабрахабр" name="apple-mobile-web-app-title">
+<link href="http://habrahabr.ru/images/apple-touch-icon_142x142.png" rel="apple-touch-icon" type="image/png">
+  <script charset="utf-8" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/watch.js"></script><style type="text/css">.yap-yandex_ad-horizontal,.yap-yandex_ad-horizontal yatag{display:block!important;box-sizing:content-box!important}.yap-yandex_ad-horizontal,.yap-yandex_ad-horizontal a,.yap-yandex_ad-horizontal em,.yap-yandex_ad-horizontal img,.yap-yandex_ad-horizontal table,.yap-yandex_ad-horizontal tbody,.yap-yandex_ad-horizontal tr,.yap-yandex_ad-horizontal td{font-size:inherit!important;background:none!important;border:none!important;border-radius:0!important;border-spacing:0!important;border-collapse:collapse!important;box-sizing:content-box!important;clear:none!important;float:none!important;font-variant:normal!important;font-weight:400!important;height:auto!important;letter-spacing:normal!important;line-height:normal!important;margin:0!important;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;outline:none!important;padding:0!important;position:static!important;text-align:left!important;text-decoration:none!important;text-indent:0!important;text-transform:none!important;vertical-align:baseline!important;visibility:visible!important;word-spacing:normal!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal table{display:table!important;empty-cells:hide!important;font-size:100%!important;table-layout:fixed!important}.yap-yandex_ad-horizontal td{display:table-cell!important;font-size:100%!important;vertical-align:middle!important}#yap-yandex_ad-horizontal .yap-layout_block_728x90 .yap-title-block{white-space:normal!important}#yap-yandex_ad-horizontal .yap-layout_block_vertical .yap-title-block{display:block!important}#yap-yandex_ad-horizontal .yap-layout_block_poster .yap-title-block,#yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-title-block{display:inline!important}#yap-yandex_ad-horizontal .yap-type-vertical .yap-logo{position:static!important}#yap-yandex_ad-horizontal .yap-layout_block_row .yap-logo{top:0!important}.yap-yandex_ad-horizontal{overflow:visible!important;white-space:normal!important;width:100%!important;font-size:100%!important;color:#333333!important;font-family:inherit!important;position:relative!important;z-index:1!important}.yap-yandex_ad-horizontal .yap-layout{overflow:hidden!important;position:relative!important;z-index:1!important}.yap-yandex_ad-horizontal .yap-layout__logo{display:inline-block!important;background:#EBEAEA!important;padding-left:.7em!important;box-sizing:border-box!important}.yap-yandex_ad-horizontal .yap-layout__wrapper{background:transparent!important;border-width:1px!important;border-color:#EBEAEA!important;border-style:solid!important;border-radius:0!important;position:relative!important;z-index:1!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout__items{width:100%!important;border-collapse:collapse!important}.yap-yandex_ad-horizontal .yap-layout__item{vertical-align:top!important;background:transparent!important;border-width:0!important;border-color:#EBEAEA!important;border-style:solid!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout__outer{position:relative!important;z-index:1!important;zoom:1!important}.yap-yandex_ad-horizontal .yap-layout__inner{overflow:hidden!important;width:auto!important;padding:.7em!important}.yap-yandex_ad-horizontal .yap-layout_type_wide .yap-layout__picture,.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-layout__picture,.yap-yandex_ad-horizontal .yap-layout_type_compatible .yap-layout__picture{float:left!important;padding-right:.7em!important}.yap-yandex_ad-horizontal .yap-layout_type_wide .yap-layout__content,.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-layout__content{overflow:hidden!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow .yap-layout__picture{padding-bottom:.7em!important;margin:0 auto!important}.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-layout__picture{padding-right:.6em!important}.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-layout__logo{padding-left:.6em!important}.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-layout__inner{padding:.6em .1em .6em .6em!important}.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-layout__warning{margin-right:.4em!important}.yap-yandex_ad-horizontal .yap-layout__body{margin-top:0.38em!important}.yap-yandex_ad-horizontal .yap-layout__sitelinks,.yap-yandex_ad-horizontal .yap-layout__schedule,.yap-yandex_ad-horizontal .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout__address,.yap-yandex_ad-horizontal .yap-layout__warning{margin-top:.23em!important}.yap-yandex_ad-horizontal .yap-layout__address{width:100%!important;overflow:hidden!important;zoom:1!important}.yap-yandex_ad-horizontal .yap-layout__age{vertical-align:text-top!important;display:inline-block!important;margin-top:-.2em!important;margin-left:.16em!important}.yap-yandex_ad-horizontal .yap-layout__adtune{display:none!important;position:absolute!important;right:1px!important;top:1px!important;cursor:pointer!important;z-index:10!important}.yap-yandex_ad-horizontal .yap-layout__item:hover .yap-layout__adtune{display:block!important}.yap-yandex_ad-horizontal .yap-layout__adtune-message{display:none!important}.yap-yandex_ad-horizontal .yap-layout__item_abused{background:#fff!important}.yap-yandex_ad-horizontal .yap-layout__item_abused .yap-layout__inner,.yap-yandex_ad-horizontal .yap-layout__item_abused .yap-layout__inner *{visibility:hidden!important}.yap-yandex_ad-horizontal .yap-layout__item_abused .yap-layout__adtune-message{display:block!important}.yap-yandex_ad-horizontal .yap-layout__picture-rating{margin-top:.23em!important}.yap-yandex_ad-horizontal .yap-layout__app{margin-top:.4em!important}.yap-yandex_ad-horizontal .yap-layout_block_vertical .yap-layout__items{border-spacing:0 0!important;margin-top:0!important;margin-bottom:0!important}.yap-yandex_ad-horizontal .yap-layout_block_vertical .yap-layout__item{border-bottom-width:!important}.yap-yandex_ad-horizontal .yap-layout_block_vertical tr:last-child .yap-layout__item{border-bottom-width:!important}.yap-yandex_ad-horizontal .yap-layout_block_horizontal .yap-layout__wrapper{margin-right:!important}.yap-yandex_ad-horizontal .yap-layout_block_horizontal .yap-layout__items{border-spacing:!important;margin-left:!important}.yap-yandex_ad-horizontal .yap-layout_block_horizontal .yap-layout__item{width:33.33%!important;border-right-width:0!important}.yap-yandex_ad-horizontal .yap-layout_block_horizontal .yap-layout__item:last-child{border-right-width:!important}.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__wrapper{margin-right:!important}.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__items{border-spacing:!important;margin:!important}.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__item{width:66.67%!important}.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__item_nth_1,.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__item_nth_2{border-bottom-width:!important}.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__item_nth_1,.yap-yandex_ad-horizontal .yap-layout_block_grid .yap-layout__item_nth_3{border-right-width:!important}.yap-yandex_ad-horizontal{width:!important;height:!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed{font-size:13px!important;width:px!important;height:px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-medium{font-size:11px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-small{font-size:10px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_invisible,.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_invisible *{visibility:hidden!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-layout__items{height:100%!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-layout__inner{padding:5px 1px 5px 5px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_728x90 .yap-layout__inner{padding:0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_728x90.yap-layout_block_msn .yap-layout__inner{padding:4px 1px 4px 4px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_adaptive .yap-layout__inner{padding:5px 6px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-layout__warning{margin-right:4px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-small .yap-layout__warning{margin-top:0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_type_wide .yap-layout__picture,.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_type_medium .yap-layout__picture,.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_type_compatible .yap-layout__picture,.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_728x90.yap-layout_block_msn .yap-layout__picture{padding-right:5px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_adaptive .yap-layout__picture{padding-right:6px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_728x90 .yap-layout__picture{padding:0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_type_narrow .yap-layout__picture{padding-bottom:5px!important;position:relative!important;left:-2px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_adaptive.yap-layout_type_narrow .yap-layout__picture{padding:0 0 7px!important;left:0!important}.yap-yandex_ad-horizontal .yap-layout_block_728x90 .yap-layout__content{padding:4px 1px 4px 5px!important}.yap-yandex_ad-horizontal .yap-layout_block_adaptive .yap-layout__content{zoom:1!important}.yap-yandex_ad-horizontal .yap-layout_block_728x90.yap-layout_block_msn .yap-layout__content{padding:0!important}.yap-yandex_ad-horizontal .yap-layout_type_wide.yap-layout_block_728x90 .yap-layout__item_nth_1 .yap-layout__picture{overflow:hidden!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout_type_wide.yap-layout_block_msn .yap-layout__item_nth_1 .yap-layout__picture{overflow:visible!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout_hide_sitelinks .yap-layout__sitelinks,.yap-yandex_ad-horizontal .yap-layout_hide_schedule .yap-layout__schedule,.yap-yandex_ad-horizontal .yap-layout_hide_contacts.yap-layout_hide_domain .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_hide_address .yap-layout__address,.yap-yandex_ad-horizontal .yap-layout_hide_contacts .yap-contacts__item{display:none!important}.yap-yandex_ad-horizontal .yap-layout_hide_contacts .yap-contacts__item_domain{display:inline-block!important}.yap-yandex_ad-horizontal .yap-layout_hide_domain .yap-contacts__item_domain{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-vertical .yap-layout__logo{padding-left:5px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-vertical .yap-layout__wrapper{height:NaNpx!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-vertical .yap-layout__item{vertical-align:middle!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal .yap-layout__logo{position:absolute!important;left:0!important;top:0!important;overflow:hidden!important;padding:0!important;width:17px!important;height:100%!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal .yap-layout__wrapper{margin-left:17px!important;width:NaNpx!important;height:NaNpx!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal.yap-layout_text-inline .yap-layout__title,.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal.yap-layout_text-inline .yap-layout__body{display:inline!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal.yap-layout_text-inline .yap-layout__title{margin-right:5px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal.yap-layout_text-inline .yap-layout__body{margin-top:0!important}.yap-yandex_ad-horizontal .yap-layout_block_320x100 .yap-layout__inner{padding:4px 1px 4px 4px!important}.yap-yandex_ad-horizontal .yap-layout_block_160x600 .yap-layout__inner{padding-right:0!important}.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__inner{padding:0!important}.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__content{padding:2px 1px 1px 5px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_320x50 .yap-layout__picture{padding:0!important}.yap-yandex_ad-horizontal .yap-layout_type_wide.yap-layout_block_320x50 .yap-layout__item_nth_1 .yap-layout__picture{overflow:hidden!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__body,.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__sitelinks,.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__schedule,.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__warning{margin-top:0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-layout__app{margin-top:.23em!important}.yap-yandex_ad-horizontal .yap-layout_block_320x50 .yap-layout__app{margin-top:0!important;padding-bottom:.2em!important}.yap-yandex_ad-horizontal .yap-layout_hide_app .yap-layout__app{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_type_narrow .yap-layout__app{padding-right:4px!important}#yap-yandex_ad-horizontal .yap-layout_block_single .yap-layout__content{font-size:15px!important}#yap-yandex_ad-horizontal .yap-layout_block_single .yap-layout__content .yap-title-block__text{font-size:24px!important}#yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single728x90 .yap-layout__content .yap-title-block__text{font-size:28px!important}#yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_medium .yap-layout__content{font-size:14px!important}#yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_medium .yap-layout__content .yap-title-block__text{font-size:20px!important}#yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_small .yap-layout__content{font-size:13px!important}#yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_small .yap-layout__content .yap-title-block__text{font-size:18px!important}#yap-yandex_ad-horizontal .yap-layout_block_single .yap-layout__content .yap-title-block__favicon{font-size:100%!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow.yap-layout_block_single_vertical .yap-layout__picture{padding-bottom:12px!important;margin:0!important;text-align:center!important;width:auto!important;left:0!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow.yap-layout_block_single_vertical.yap-layout_block_single_small .yap-layout__picture{padding-bottom:8px!important}.yap-yandex_ad-horizontal .yap-layout_block_single_vertical .yap-picture-block__link,.yap-yandex_ad-horizontal .yap-layout_block_single_vertical .yap-picture-block__img{display:inline-block!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow.yap-layout_block_single_vertical .yap-layout__content{text-align:center!important}.yap-yandex_ad-horizontal .yap-layout_type_wide.yap-layout_block_single728x90 .yap-layout__content{padding:4px 9px!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow.yap-layout_block_single_vertical .yap-layout__inner{padding:10px 25px!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow.yap-layout_block_single240x400 .yap-layout__inner{padding:10px!important}.yap-yandex_ad-horizontal .yap-layout_block_single .yap-title-block__favicon-img{vertical-align:bottom!important}.yap-yandex_ad-horizontal .yap-layout_block_single .yap-layout__warning,.yap-yandex_ad-horizontal .yap-layout_block_single .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_block_single .yap-layout__body{margin-top:5px!important}.yap-yandex_ad-horizontal .yap-layout_block_single_vertical .yap-layout__contacts{margin-top:7px!important}.yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_small .yap-layout__warning,.yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_small .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_block_single.yap-layout_block_single_small .yap-layout__body{margin-top:4px!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_single .yap-layout__warning{margin-right:0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_single.yap-layout_block_vertical .yap-layout__app{margin:10px 0 0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_single.yap-layout_block_horizontal .yap-layout__app{margin:2px 0 0!important}.yap-yandex_ad-horizontal .yap-layout_block_msn{font-size:11px!important}.yap-yandex_ad-horizontal .yap-layout_block_msn.yap-layout_size_1{font-size:10px!important}.yap-yandex_ad-horizontal .yap-layout_block_msn.yap-layout_size_2{font-size:9px!important}.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-layout__age{margin-top:-.3em!important}.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-layout__age,.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-layout__warning{font-size:12px!important}.yap-yandex_ad-horizontal .yap-layout_block_compact{overflow:hidden!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__logo{float:left!important;margin-right:.5em!important;padding-left:.4em!important;position:relative!important;z-index:1!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__item{overflow:hidden!important;padding:.1539em 15px .1539em .1539em!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__inner{padding:0!important;position:relative!important;z-index:1!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__inner,.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__title{overflow:hidden!important;text-overflow:ellipsis!important;-webkit-text-overflow:ellipsis!important;-moz-text-overflow:ellipsis!important;-ms-text-overflow:ellipsis!important;-o-text-overflow:ellipsis!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__title{white-space:nowrap!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__item_age_true .yap-layout__title{padding-right:3em!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__title-domain{display:inline!important;padding-left:.4em!important}.yap-yandex_ad-horizontal .yap-layout_block_compact.yap-layout_hide-title-domain .yap-layout__title-domain{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__age{position:absolute!important;right:0!important;top:0!important;margin:0!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__content{overflow:hidden!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__body{margin-top:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;-webkit-text-overflow:ellipsis!important;-moz-text-overflow:ellipsis!important;-ms-text-overflow:ellipsis!important;-o-text-overflow:ellipsis!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__action{margin-left:.4em!important;text-decoration:underline!important;color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__action:hover{color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__action-price{display:inline!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__rating{position:relative!important;top:.1em!important;display:inline-block!important;vertical-align:top!important;margin-left:.5em!important;font-size:.8em!important}.yap-yandex_ad-horizontal .yap-layout_block_compact.yap-layout_hide-title-rating .yap-layout__rating{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__adtune{position:absolute!important;right:2px!important;top:4px!important;z-index:1!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__item_abused .yap-layout__adtune{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__item_abused .yap-layout__logo,.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__item_abused .yap-layout__logo *{visibility:visible!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-layout__adtune-message{position:absolute!important;z-index:1!important;left:100px!important;right:0!important;top:0!important;height:100%!important;width:!important}.yap-yandex_ad-horizontal .yap-layout_block_row{white-space:nowrap!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__logo{float:none!important;display:inline-block!important;vertical-align:!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__content{margin-left:.6em!important;text-overflow:ellipsis!important;-webkit-text-overflow:ellipsis!important;-moz-text-overflow:ellipsis!important;-ms-text-overflow:ellipsis!important;-o-text-overflow:ellipsis!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__age,.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__content,.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__title,.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__body{display:inline!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__item_age_true .yap-layout__title{padding-right:0!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__title-domain{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__body,.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__body-domain{margin-left:.4em!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__age{position:static!important;margin-left:.6em!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__adtune{right:1px!important;top:50%!important;margin-top:-7px!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-layout__inner{padding:!important}.yap-yandex_ad-horizontal .yap-layout_block_poster{max-width:300px!important;min-width:200px!important;font-size:13px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item{tap-highlight-color:rgba(0,0,0,0)!important;outline:none!important;cursor:pointer!important;-webkit-tap-highlight-color:rgba(0,0,0,0)!important;-moz-tap-highlight-color:rgba(0,0,0,0)!important;-ms-tap-highlight-color:rgba(0,0,0,0)!important;-o-tap-highlight-color:rgba(0,0,0,0)!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_picture_false{background-color:#fff!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__outer,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__inner{overflow:hidden!important;position:relative!important;z-index:1!important;zoom:1!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__inner{padding:0!important;margin:7px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__content{position:relative!important;z-index:1!important;zoom:1!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__title,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__slider,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__warning{padding:9px!important;background:#fff!important;position:relative!important;z-index:3!important;margin:0!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__title{padding-right:25px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__age{margin-left:.5em!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__body{margin:0!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__arrow{position:absolute!important;right:9px!important;bottom:10px!important;transition:opacity 300ms ease-in-out,bottom 300ms ease-in-out!important;opacity:.6!important;-webkit-transition:opacity 300ms ease-in-out,bottom 300ms ease-in-out!important;-moz-transition:opacity 300ms ease-in-out,bottom 300ms ease-in-out!important;-ms-transition:opacity 300ms ease-in-out,bottom 300ms ease-in-out!important;-o-transition:opacity 300ms ease-in-out,bottom 300ms ease-in-out!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_sticky-arrow_true .yap-layout__arrow{bottom:3px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__arrow path,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__arrow path:hover{fill:#333333!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__adtune{z-index:4!important;display:block!important;position:absolute!important;right:7px!important;top:7px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__sitelinks{margin-top:.55em!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__schedule,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__app{margin-top:.63em!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-contacts__domain{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__title-domain,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__title-rating{margin-top:.23em!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__title-domain{font-size:15px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__picture{float:none!important;display:block!important;padding:0!important;margin-bottom:0!important;margin-right:0!important;background-position:center center!important;background-repeat:no-repeat!important;background-size:contain!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)!important;border:none!important;position:absolute!important;z-index:2!important;left:50%!important;top:50%!important;-webkit-background-size:contain!important;-moz-background-size:contain!important;-ms-background-size:contain!important;-o-background-size:contain!important;-webkit-box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)!important;-moz-box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)!important;-ms-box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)!important;-o-box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__picture_plain{border:none!important;box-shadow:none!important;-webkit-box-shadow:none!important;-moz-box-shadow:none!important;-ms-box-shadow:none!important;-o-box-shadow:none!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__bg{position:absolute!important;z-index:1!important;width:200%!important;height:200%!important;left:-50%!important;top:-30%!important;opacity:.3!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__bg svg{width:100%!important;height:100%!important;position:absolute!important;left:0!important;top:0!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__bg_firefox{background-repeat:no-repeat!important;background-size:contain!important;background-position:center center!important;filter:blur(4px)!important;-webkit-background-size:contain!important;-moz-background-size:contain!important;-ms-background-size:contain!important;-o-background-size:contain!important;-webkit-filter:blur(4px)!important;-moz-filter:blur(4px)!important;-ms-filter:blur(4px)!important;-o-filter:blur(4px)!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__bg_old-ie{filter:alpha(opacity=30)!important;text-align:center!important;height:!important;-webkit-filter:alpha(opacity=30)!important;-moz-filter:alpha(opacity=30)!important;-ms-filter:alpha(opacity=30)!important;-o-filter:alpha(opacity=30)!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__bg_old-ie img{display:inline-block!important;height:100%!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__slider{z-index:2!important;box-shadow:0 -1px #fff!important;box-sizing:border-box!important;padding-top:0!important;-webkit-box-shadow:0 -1px #fff!important;-moz-box-shadow:0 -1px #fff!important;-ms-box-shadow:0 -1px #fff!important;-o-box-shadow:0 -1px #fff!important}.yap-yandex_ad-horizontal .yap-layout_block_poster.yap-layout_transition_true .yap-layout__slider{transition:transform 300ms ease-in-out,opacity 300ms ease-in-out!important;transform:translateY(-100%)!important;transform-origin:left top!important;opacity:0!important;-webkit-transition:-webkit-transform 300ms ease-in-out,opacity 300ms ease-in-out!important;-moz-transition:-moz-transform 300ms ease-in-out,opacity 300ms ease-in-out!important;-ms-transition:-ms-transform 300ms ease-in-out,opacity 300ms ease-in-out!important;-o-transition:-o-transform 300ms ease-in-out,opacity 300ms ease-in-out!important;-webkit-transform:translateY(-100%)!important;-moz-transform:translateY(-100%)!important;-ms-transform:translateY(-100%)!important;-o-transform:translateY(-100%)!important;-webkit-transform-origin:left top!important;-moz-transform-origin:left top!important;-ms-transform-origin:left top!important;-o-transform-origin:left top!important}.yap-yandex_ad-horizontal .yap-layout_block_poster.yap-layout_transition_true .yap-layout__item_picture_false .yap-layout__slider,.yap-yandex_ad-horizontal .yap-layout_block_poster.yap-layout_transition_true.yap-layout_touch_false .yap-layout__item:hover .yap-layout__slider,.yap-yandex_ad-horizontal .yap-layout_block_poster.yap-layout_transition_true .yap-layout__item_hover .yap-layout__slider{transform:none!important;opacity:1!important;-webkit-transform:none!important;-moz-transform:none!important;-ms-transform:none!important;-o-transform:none!important}.yap-yandex_ad-horizontal .yap-layout_block_poster.yap-layout_touch_false .yap-layout__item:hover .yap-layout__arrow,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_hover .yap-layout__arrow{bottom:-30px!important;opacity:0!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_abused{background:#fff!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_abused .yap-layout__bg{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_poster-horizontal{max-width:900px!important;min-width:600px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster-horizontal .yap-layout__outer,.yap-yandex_ad-horizontal .yap-layout_block_poster-horizontal .yap-layout__slider-inner,.yap-yandex_ad-horizontal .yap-layout_block_poster-horizontal .yap-layout__title{box-sizing:border-box!important}.yap-yandex_ad-horizontal .yap-vk-main{display:block!important;font-family:Tahoma,Arial,Verdana,Lucida Sans,sans-serif!important;font-style:normal!important;font-weight:400!important;width:118px!important;padding:0!important;margin:0!important}.yap-yandex_ad-horizontal .yap-vk-main yatag{display:block!important}.yap-yandex_ad-horizontal .yap-vk-main img{border:0!important;display:inline-block!important}.yap-yandex_ad-horizontal .yap-vk-logo,.yap-yandex_ad-horizontal .yap-vk-logo *{color:#777!important;font-size:.91em!important;line-height:11px!important;font-weight:400!important;font-style:normal!important}.yap-yandex_ad-horizontal .yap-vk-logo{padding:3px 0 4px!important;text-align:center!important}.yap-yandex_ad-horizontal .yap-vk-main a.yap-vk-item,.yap-yandex_ad-horizontal .yap-vk-main a.yap-vk-item:hover,.yap-yandex_ad-horizontal .yap-vk-main a.yap-vk-item:visited{position:relative!important;display:block!important;padding:8px 3px 11px!important;text-decoration:none!important;color:#000!important;text-align:center!important;border-bottom:1px solid #DCE3E9!important}.yap-yandex_ad-horizontal .yap-vk-main a.yap-vk-item.yap-vk-item-1{border-top:1px solid #DCE3E9!important}.yap-yandex_ad-horizontal .yap-vk-title{color:#66B2FF!important;font-weight:700!important;word-wrap:break-word!important}.yap-yandex_ad-horizontal .yap-vk-domain{color:#777!important;font-size:.91em!important;padding-top:3px!important;word-wrap:break-word!important}.yap-yandex_ad-horizontal .yap-vk-image{padding-top:9px!important}.yap-yandex_ad-horizontal .yap-vk-body{padding-top:10px!important;word-wrap:break-word!important}.yap-yandex_ad-horizontal .yap-vk-warning,.yap-yandex_ad-horizontal .yap-vk-age{color:#777!important;font-size:.82em!important;line-height:130%!important;padding-top:10px!important}.yap-yandex_ad-horizontal .yap-vk__app{margin-top:9px!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru{font-size:10px!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__logo{padding:.4em .8em!important;font-size:120%!important;color:#666!important;background:none!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__logo em{font-style:normal!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__inner{padding:.4em .8em 1.2em!important;overflow:hidden!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__title{margin-bottom:.5em!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__age{margin-top:0!important;vertical-align:top!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__body{margin-top:0!important;overflow:hidden!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__picture{padding-right:.6em!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__warning{padding-top:.6em!important;margin-top:0!important;overflow:hidden!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__address{width:auto!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru-vertical .yap-layout__contacts,.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__warning{clear:both!important;zoom:1!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__adtune{right:3px!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__app{display:table-cell!important;margin:0!important;padding-top:.4em!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-body-text,.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-layout__app{font-size:120%!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-domain,.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-contacts__item-link,.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-contacts__item-text{font-size:110%!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-age,.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-warning{border-radius:0!important;font-size:100%!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-age{margin:0!important;line-height:1.4!important;font-size:105%!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-contacts__item-link:hover{color:#333333!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-domain:hover{color:#333333!important}.yap-yandex_ad-horizontal .yap-logo-block{position:relative!important;z-index:1!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-logo-block{height:16px!important}.yap-yandex_ad-horizontal .yap-logo-block__text{font-family:Arial,sans-serif!important;font-size:87%!important;padding-right:4px!important;line-height:1.4!important;font-weight:400!important;color:#000!important;text-decoration:none!important}.yap-yandex_ad-horizontal .yap-logo-block__text em{font-weight:400!important;font-style:normal!important;vertical-align:baseline!important}.yap-yandex_ad-horizontal .yap-logo-block__arrow{position:absolute!important;z-index:1!important;right:-9px!important;top:0!important;width:9px!important;height:100%!important;background-image:url("data:image/gif,GIF89a%C8%00)%00%80%01%00%EB%EA%EA%FF%FF%FF!%F9%04%01%00%00%01%00%2C%00%00%00%00%C8%00)%00%00%02%AB%84%8F%A9%CB%ED%0F%A3%9C%B4%DA%1B%B2%DE%B7%FB%0F%86%E2%E8lf%40%A6%EA%CA%B6%D2%A9%B9%F2L%D7%14%9C%D9%FA%CE%CBx%0F%0C%0A-%BF%A1%F1%884%C0%92%CC%E6n%E9%8CJY%A7%A9%F5%0A%AAb%B7%DC%17%A7%0B%0E'L%E2%B2%F8kNc%D1%EA%B64%E6%8E%3B%E1%F2%3A2g%CF%0F%F1%FA~%0F%E5%17%A8%03(XhxhF%88%B8(%A2%C8%F8%88%E1%089%E9Ei%E9%25y%A9%89%40%B7%E9%A9%D4%F9%B9%C9%26zIV%3AJ%8A%0A%A9%B5J%D9%EA%FA%08%15%2B%0BK%7BXt%8B%98%AB%5B%88%93%D9%AB%F7%1B%EC%3BL%1C%F8%1BP%00%00%3B")!important;background-position:center right!important;background-repeat:no-repeat!important;margin-top:!important}.yap-yandex_ad-horizontal .yap-logo-fallback{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal .yap-logo-block{display:block!important;position:absolute!important;z-index:1!important;left:0!important;bottom:6px!important;width:0!important;height:0!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal .yap-logo-block__text{display:inline-block!important;transform:rotate(270deg)!important;transform-origin:left top!important;font-size:10px!important;line-height:17px!important;padding:0!important;-webkit-transform:rotate(270deg)!important;-moz-transform:rotate(270deg)!important;-ms-transform:rotate(270deg)!important;-o-transform:rotate(270deg)!important;-webkit-transform-origin:left top!important;-moz-transform-origin:left top!important;-ms-transform-origin:left top!important;-o-transform-origin:left top!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal .yap-logo-block__arrow{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed-horizontal .yap-logo-fallback{display:block!important;width:100%!important;height:100%!important;position:absolute!important;z-index:1!important;bottom:6px!important;left:0!important;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABFCAMAAABE4oc2AAAAeFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVyEiIAAAAJ3RSTlMAByQoEAMKZBIN39RsQR8Zp3otFelUm42AX006tTLyxL1YzK6UiJ9zbzQkAAABa0lEQVQoz3WRWZLDIAxExR4bY/AW79kmGd3/hgMiTuVn+sN+pWqpEQAAr+CQeHXee0KOUaVM2DYfg3fpo8lQeqj6gsr77dEwom4wOMyasDJ3U2VDYea1I9J2CkOp81y1QThRcCgCuxLChIhHonD1m6pYHXLtWoC3kjD5Ag3zOC0vNCYFm9nMMTqiOiXlNsQH9pLY0ags1lw5QV1uAS+Saq0QXKgIPKk+Y4j9pL7WwK1KrvMJvlGg3UbDf2RsEzVfG7w4caRU5+bIG4ujqExG3sLcEXXo4P6+nYrm5pN5xW32DojRQ9VZ6WKkPv14rlipPHS5cPg84bExS8rl3Y5mJZK9+217mdPU9kkTQZQ5baG0LFUoR40ck4aUIiYmddyY8Ou8PU5WQ5Z2eBvSf9/b3dUyGbaAv7GNxMLnKeSNsX+P7qfx1Yzjs4hZl+VeLsvCovMGbAOSuCpm35tZ3eL7Rp6Ia2fzQj6db5bwB7VAGypfQp1XAAAAAElFTkSuQmCC) !important;background-position:center bottom!important;background-repeat:no-repeat!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-logo-block__text{font-size:11px!important}.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-logo-block__text{font-size:10px!important;color:#666!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-logo__text{text-decoration:!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-logo__text:hover{text-decoration:!important}.yap-yandex_ad-horizontal .yap-picture-block__link,.yap-yandex_ad-horizontal .yap-picture-block__img{display:block!important}.yap-yandex_ad-horizontal .yap-title-block{display:inline!important}.yap-yandex_ad-horizontal .yap-title-block hl{vertical-align:baseline!important}.yap-yandex_ad-horizontal .yap-title-block__text{color:#66B2FF!important;text-decoration:underline!important;font-weight:normal!important}.yap-yandex_ad-horizontal .yap-title-block__text:hover{color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-title-block__text,.yap-yandex_ad-horizontal .yap-title-block__favicon{display:inline!important;line-height:1.1!important;vertical-align:baseline!important}#yap-yandex_ad-horizontal .yap-title-block__text,#yap-yandex_ad-horizontal .yap-title-block__favicon{font-size:142%!important}.yap-yandex_ad-horizontal .yap-title-block__favicon{display:inline!important;padding-right:.3em!important;vertical-align:baseline!important}.yap-yandex_ad-horizontal .yap-title-block__favicon-img{display:inline-block!important;vertical-align:baseline!important;width:16px!important;height:16px!important}.yap-yandex_ad-horizontal .yap-title-block__favicon_scale_true .yap-title-block__favicon-img{width:1em!important;height:1em!important;max-width:16px!important;max-height:16px!important;vertical-align:middle!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-title-block__favicon-img{vertical-align:middle!important}#yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_fixed .yap-title-block__favicon{font-size:!important}#yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-medium .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-medium .yap-title-block__favicon{font-size:16px!important}#yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-small .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_block_fixed-small .yap-title-block__favicon{font-size:13px!important}#yap-yandex_ad-horizontal .yap-layout_block_320x50.yap-layout_block_fixed.yap-layout_block_fixed-small .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_320x50.yap-layout_block_fixed.yap-layout_block_fixed-small .yap-title-block__favicon,#yap-yandex_ad-horizontal .yap-layout_block_adaptive.yap-layout_block_fixed.yap-layout_block_fixed-small .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_adaptive.yap-layout_block_fixed.yap-layout_block_fixed-small .yap-title-block__favicon{font-size:12px!important;font-weight:700!important}#yap-yandex_ad-horizontal .yap-layout_block_compact .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_compact .yap-title-block__favicon{font-size:100%!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-title-block__text{white-space:nowrap!important;font-weight:bold!important}#yap-yandex_ad-horizontal .yap-layout_block_msn .yap-title-block__text,#yap-yandex_ad-horizontal .yap-layout_block_msn .yap-title-block__favicon{font-size:118%!important;font-weight:700!important}#yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-title-block__favicon,#yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-title-block__text{font-size:150%!important}.yap-yandex_ad-horizontal .yap-layout_block_mailru .yap-title-block__favicon{margin-bottom:-2px!important}.yap-yandex_ad-horizontal .yap-body-text{display:inline!important;font-weight:400!important;line-height:1.2!important;text-decoration:none!important;color:#333333!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-body-text wbr{display:none!important}.yap-yandex_ad-horizontal .yap-adtune__button{width:14px!important;height:14px!important}.yap-yandex_ad-horizontal .yap-adtune__image{width:8px!important;height:8px!important;margin:3px!important;opacity:.6!important}.yap-yandex_ad-horizontal .yap-adtune__image svg{display:block!important}.yap-yandex_ad-horizontal .yap-adtune__image polygon{fill:#333333!important}.yap-yandex_ad-horizontal .yap-adtune .yap-adtune__text{font:15px/15px Arial,sans-serif!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-adtune__text{position:relative!important;top:-2px!important}.yap-yandex_ad-horizontal .yap-adtune__tooltip{display:none!important;position:absolute!important;right:18px!important;top:-2px!important;max-width:120px!important;padding:1px 4px 2px!important;font:11px/14.7px Arial,sans-serif!important;color:#fff!important;background:#333!important}.yap-yandex_ad-horizontal .yap-adtune__button:hover .yap-adtune__tooltip{display:block!important}.yap-yandex_ad-horizontal .yap-adtune_touch_true .yap-adtune__button:hover .yap-adtune__tooltip{display:none!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-adtune__tooltip{top:0!important;padding:0 4px 1px!important}.yap-yandex_ad-horizontal .yap-adtune__tooltip:before,.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-adtune__tooltip:before{position:absolute!important;right:-4px!important;top:50%!important;margin-top:-4px!important;width:8px!important;height:8px!important;background:#333!important;transform:rotate(45deg)!important;transform-origin:center!important;content:""!important;-webkit-transform:rotate(45deg)!important;-moz-transform:rotate(45deg)!important;-ms-transform:rotate(45deg)!important;-o-transform:rotate(45deg)!important;-webkit-transform-origin:center!important;-moz-transform-origin:center!important;-ms-transform-origin:center!important;-o-transform-origin:center!important}.yap-yandex_ad-horizontal .yap-adtune_oldie_true .yap-adtune__tooltip:before{overflow:hidden!important;width:5px!important;height:11px!important;margin-top:-7px!important;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAALCAYAAAC3ZUeVAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABMSURBVBjTYzA2Ni5hQAdAwX9GRkaJ6IL/gfgPEAegC4LwNyC2QRcE4Q9Ao/TQBf8DBY+iC74xNDTUQjHTxMTEGtnMX0ABL4LuxPARAEB/MGK8nMgKAAAAAElFTkSuQmCC") right center no-repeat!important}.yap-yandex_ad-horizontal .yap-adtune__tooltip-text{position:relative!important;color:#fff!important}.yap-yandex_ad-horizontal .yap-adtune-message{position:absolute!important;left:0!important;top:0!important;width:100%!important;height:100%!important;z-index:6!important}.yap-yandex_ad-horizontal .yap-adtune-message__table,.yap-yandex_ad-horizontal .yap-adtune-message__text{width:100%!important;height:100%!important}.yap-yandex_ad-horizontal .yap-adtune-message__text{vertical-align:middle!important;text-align:center!important;font-size:13px!important}.yap-yandex_ad-horizontal .yap-contacts__item{display:inline-block!important;vertical-align:baseline!important;padding-right:1em!important;font-size:100%!important;line-height:1.1!important}.yap-yandex_ad-horizontal .yap-contacts__item:last-child{padding-right:0!important}.yap-yandex_ad-horizontal .yap-contacts__phone{white-space:nowrap!important}.yap-yandex_ad-horizontal .yap-contacts__item-link,.yap-yandex_ad-horizontal .yap-contacts__item-text{display:inline!important;text-decoration:none!important;color:#333333!important}.yap-yandex_ad-horizontal .yap-contacts__item-link:hover{text-decoration:underline!important;color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-contacts__info-icon{display:inline-block!important;padding-right:.4em!important;font:700 italic 100% "Times New Roman",serif!important}.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-contacts__item-link,.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-contacts__item-text{font-weight:700!important}.yap-yandex_ad-horizontal .yap-address{float:left!important;width:auto!important;max-width:100%!important}.yap-yandex_ad-horizontal .yap-address__text{overflow:hidden!important}.yap-yandex_ad-horizontal .yap-address__text-wrap{overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;color:#333333!important;-webkit-text-overflow:ellipsis!important;-moz-text-overflow:ellipsis!important;-ms-text-overflow:ellipsis!important;-o-text-overflow:ellipsis!important}.yap-yandex_ad-horizontal .yap-address__geo{float:right!important;text-align:right!important;padding:0 1px 0 1em!important}.yap-yandex_ad-horizontal .yap-layout_type_narrow .yap-address__geo,.yap-yandex_ad-horizontal .yap-layout_type_medium .yap-address__geo,.yap-yandex_ad-horizontal .yap-layout_type_compatible .yap-address__geo{float:none!important;padding:0!important;text-align:left!important}.yap-yandex_ad-horizontal .yap-layout_block_fixed.yap-layout_type_wide .yap-address__geo{padding-right:5px!important}.yap-yandex_ad-horizontal .yap-domain{display:inline!important;color:#333333!important}.yap-yandex_ad-horizontal .yap-domain:hover{text-decoration:underline!important;color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-layout_block_compact .yap-domain:hover{text-decoration:none!important}.yap-yandex_ad-horizontal .yap-layout_block_msn .yap-domain{font-weight:700!important}.yap-yandex_ad-horizontal .yap-age{display:inline-block!important;font-size:70%!important;border:1px solid #dddcda!important;border-radius:4px!important;padding:0 .15em!important;text-align:center!important;line-height:1.6!important;border-color:#E0E0E0!important;background-color:#FFFFFF!important;-webkit-border-radius:4px!important;-moz-border-radius:4px!important;-ms-border-radius:4px!important;-o-border-radius:4px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-age{border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout_block_row .yap-age{line-height:1.4!important}.yap-yandex_ad-horizontal .yap-warning{overflow:hidden!important;padding:.15em .3em!important;border:1px solid #dddcda!important;font-size:70%!important;line-height:1.1!important;border-radius:4px!important;border-color:#E0E0E0!important;background-color:#FFFFFF!important;-webkit-border-radius:4px!important;-moz-border-radius:4px!important;-ms-border-radius:4px!important;-o-border-radius:4px!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-warning{border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;-ms-border-radius:0!important;-o-border-radius:0!important}.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_picture_true .yap-warning{background-color:#FFFFFF!important;border-color:#FFFFFF!important;transition:border-color 200ms 100ms linear,background-color 200ms 100ms linear!important;-webkit-transition:border-color 200ms 100ms linear,background-color 200ms 100ms linear!important;-moz-transition:border-color 200ms 100ms linear,background-color 200ms 100ms linear!important;-ms-transition:border-color 200ms 100ms linear,background-color 200ms 100ms linear!important;-o-transition:border-color 200ms 100ms linear,background-color 200ms 100ms linear!important}.yap-yandex_ad-horizontal .yap-layout_block_poster.yap-layout_touch_false .yap-layout__item_picture_true:hover .yap-warning,.yap-yandex_ad-horizontal .yap-layout_block_poster .yap-layout__item_picture_true.yap-layout__item_hover .yap-warning{border-color:#E0E0E0!important;background-color:#FFFFFF!important}.yap-yandex_ad-horizontal .yap-sitelinks__link{vertical-align:middle!important;display:inline-block!important;margin-right:1em!important;font-weight:400!important;color:#66B2FF!important;text-decoration:underline!important}.yap-yandex_ad-horizontal .yap-sitelinks__link:hover{color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-sitelinks__link:last-child{margin-right:0!important}.yap-yandex_ad-horizontal .yap-mobile-app{padding-top:.46em!important;padding-bottom:1px!important}.yap-yandex_ad-horizontal .yap-mobile-app_compact{padding-top:.15em!important}.yap-yandex_ad-horizontal .yap-mobile-app__button{overflow:hidden!important;display:inline-block!important;vertical-align:top!important;height:2.15em!important;min-width:6.15em!important;margin:-.46em .62em .2em 0!important;padding:0 .77em!important;border:1px solid #333333!important;text-align:center!important;border-radius:4px!important;color:#333333!important;line-height:2.15em!important;cursor:pointer!important;-webkit-border-radius:4px!important;-moz-border-radius:4px!important;-ms-border-radius:4px!important;-o-border-radius:4px!important}.yap-yandex_ad-horizontal .yap-mobile-app__button_width_full{display:block!important;margin-right:0!important}.yap-yandex_ad-horizontal .yap-mobile-app__button_height_compact{height:1.54em!important;line-height:1.54em!important;margin-top:-.15em!important;margin-bottom:0!important}.yap-yandex_ad-horizontal .yap-mobile-app__button_inline{display:inline!important;height:auto!important;line-height:normal!important}.yap-yandex_ad-horizontal .yap-mobile-app__button:hover{color:#66B2FF!important;border-color:#66B2FF!important}.yap-yandex_ad-horizontal .yap-mobile-app .yap-mobile-app__button-price{display:inline-block!important}.yap-yandex_ad-horizontal .yap-layout_hide_price .yap-mobile-app__button-price{display:none!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating{display:inline-block!important;vertical-align:top!important;cursor:help!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating_width_full{display:block!important;margin-top:1px!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating_content_centered{text-align:center!important}.yap-yandex_ad-horizontal .yap-layout_hide_rating .yap-mobile-app__rating{display:none!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating-votes{display:inline-block!important;vertical-align:middle!important;margin:.2em 0 0 .5em!important;font-size:.8em!important;color:#333333!important;opacity:.8!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating .yap-mobile-app__rating-stars{overflow:hidden!important;position:relative!important;display:inline-block!important;vertical-align:middle!important;height:1em!important;width:5em!important;white-space:nowrap!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating-stars-scale_filled{position:absolute!important;left:0!important;top:0!important;overflow:hidden!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating .yap-mobile-app__rating-star{display:inline-block!important;vertical-align:top!important;fill:#333333!important;opacity:.4!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating-stars-scale_filled .yap-mobile-app__rating-star{opacity:1!important;fill:#fc0!important}.yap-yandex_ad-horizontal .yap-mobile-app__rating-star .yap-mobile-app__star-svg{display:block!important;height:1em!important;width:1em!important}</style></head>
+
+  <body><style type="text/css">#navbar .nav_panel .tab.tab_print:hover path,#navbar .nav_panel .tab.tab_print:hover text { fill: #ff0000; } </style>
+    <div id="TMpanel">
+  <div class="container">
+    <div class="menu">
+      <a href="http://tmfeed.ru/?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">TM Feed</a>
+      <a href="http://habrahabr.ru/?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo" class="current">Хабрахабр</a>
+      <a href="http://megamozg.ru/?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Мегамозг</a>
+      <a href="http://geektimes.ru/?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Geektimes</a>
+      <a href="https://toster.ru/?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Тостер</a>
+      <a href="https://moikrug.ru/?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Мой круг</a>
+      <a href="http://freelansim.ru/?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=head_link">Фрилансим</a>
+    </div>
+      <div class="menu special"><a href="http://bit.ly/1NXPVgw" target="_blank" style="color: #8baab5">Трансформеры</a><a href="http://bit.ly/1EBmFdN" target="_blank" style="color: #d01d00">Как использовать часы?</a><a href="http://bit.ly/1K5XUXl" target="_blank" style="color: #3c86ee">Бизнес коммуникации</a></div>
+  </div>
+</div>
+
+
+    <div id="layout">
+      <div id="navbar_overlay" class="hidden"></div>
+<div id="navbar" class="fixed" style="bottom: 0px;">
+    <div class="nav_panel">
+        <a href="http://habrahabr.ru/" class="logo"></a>
+            <a href="http://habrahabr.ru/users/kotovoin/" class="tab tab_user" data-tab="user_tab" title="Kotovoin">
+                <img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/stub-user-middle.gif" alt="">
+                <span class="count navbar_count_new_messages"></span>
+            </a>
+            <a href="http://habrahabr.ru/tracker/" class="tab tab_tracker" data-tab="tracker_tab" title="Трекер">
+                <span class="g-icon g-icon-alarm"></span>
+                <span class="count navbar_count_tracker_total"></span>
+            </a>
+
+            <a href="http://habrahabr.ru/posts/" class="tab tab_menu open" data-tab="menu_tab" title="Меню"><span class="g-icon g-icon-burger"></span></a>
+                <a href="http://habrahabr.ru/topic/add" class="tab tab_add_post" title="Новая публикация"><span class="g-icon g-icon-write"></span></a>
+            <a href="http://habrahabr.ru/auth/settings/profile/" class="tab tab_settings " data-tab="settings_tab" title="Настройки"><span class="g-icon g-icon-gear"></span></a>
+
+
+        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=533769&bt=21&pid=2064982&bid=3962315&bn=3962315&rnd=717590646" class="tab tab_print tab_print_for_habrauser" id="print_tab" target="_blank" data-post-id=""><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 71 71" enable-background="new 0 0 71 71" xml:space="preserve">
+<path fill-rule="evenodd" clip-rule="evenodd" fill="#C0C0C0" d="M65.7,53.1v4.8h-1.2v-4.8h-1.8V52h4.9v1.1H65.7z M61.8,57.2
+	c-0.2,0.3-0.5,0.5-0.8,0.6c-0.3,0.1-0.7,0.2-1.1,0.2c-0.4,0-0.8-0.1-1.2-0.2c-0.3-0.1-0.6-0.4-0.8-0.6c-0.2-0.3-0.4-0.6-0.5-1
+	c-0.1-0.4-0.2-0.8-0.2-1.2c0-0.5,0.1-0.9,0.2-1.3c0.1-0.4,0.3-0.7,0.5-1c0.2-0.3,0.5-0.5,0.8-0.6c0.3-0.1,0.7-0.2,1.1-0.2
+	c0.4,0,0.8,0.1,1.2,0.2c0.3,0.1,0.6,0.4,0.8,0.6c0.2,0.3,0.4,0.6,0.5,1c0.1,0.4,0.2,0.8,0.2,1.2c0,0.5-0.1,0.9-0.2,1.3
+	C62.2,56.6,62,56.9,61.8,57.2z M61.1,54.2c0-0.2-0.1-0.4-0.2-0.6c-0.1-0.2-0.3-0.3-0.4-0.4C60.3,53,60.1,53,59.8,53
+	c-0.4,0-0.8,0.2-1,0.5c-0.2,0.3-0.4,0.8-0.4,1.5c0,0.3,0,0.6,0.1,0.8c0.1,0.2,0.1,0.4,0.2,0.6c0.1,0.2,0.3,0.3,0.4,0.4
+	c0.2,0.1,0.4,0.1,0.6,0.1c0.4,0,0.8-0.2,1-0.5c0.2-0.3,0.4-0.8,0.4-1.5C61.2,54.7,61.2,54.4,61.1,54.2z M55.7,57.6
+	c-0.2,0.1-0.5,0.2-0.8,0.3C54.6,57.9,54.3,58,54,58c-0.1,0-0.2,0-0.4,0c-0.2,0-0.3,0-0.5,0c-0.2,0-0.4,0-0.6,0c-0.2,0-0.4,0-0.5-0.1
+	V52c0.1,0,0.2,0,0.4-0.1s0.3,0,0.5,0c0.2,0,0.3,0,0.5,0c0.2,0,0.4,0,0.5,0c0.3,0,0.6,0,0.8,0.1c0.3,0,0.5,0.1,0.7,0.2
+	c0.2,0.1,0.4,0.3,0.5,0.4c0.1,0.2,0.2,0.4,0.2,0.7c0,0.1,0,0.3-0.1,0.4c0,0.1-0.1,0.3-0.2,0.4c-0.1,0.1-0.2,0.2-0.3,0.3
+	c-0.1,0.1-0.3,0.2-0.5,0.2v0.1c0.2,0,0.4,0.1,0.5,0.1c0.2,0.1,0.3,0.2,0.4,0.3c0.1,0.1,0.2,0.3,0.3,0.4c0.1,0.2,0.1,0.4,0.1,0.6
+	c0,0.3-0.1,0.6-0.2,0.8C56.1,57.2,55.9,57.4,55.7,57.6z M54.9,53.3c-0.1-0.1-0.1-0.2-0.2-0.2C54.6,53,54.5,53,54.4,53
+	c-0.1,0-0.3,0-0.4,0c-0.2,0-0.3,0-0.4,0c-0.1,0-0.2,0-0.3,0v1.5h0.4c0.1,0,0.2,0,0.3,0c0.1,0,0.2,0,0.3,0c0.2-0.1,0.4-0.2,0.6-0.3
+	C55,54,55,53.8,55,53.6C55,53.5,55,53.4,54.9,53.3z M55.1,55.7c-0.1-0.1-0.2-0.2-0.3-0.2c-0.1-0.1-0.3-0.1-0.4-0.1
+	c-0.2,0-0.3,0-0.5,0h-0.7v1.5c0,0,0.1,0,0.1,0c0.1,0,0.1,0,0.2,0c0.1,0,0.2,0,0.2,0c0.1,0,0.2,0,0.2,0c0.2,0,0.3,0,0.4,0
+	c0.1,0,0.3-0.1,0.4-0.1c0.1-0.1,0.2-0.1,0.3-0.2c0.1-0.1,0.1-0.2,0.1-0.4C55.2,56,55.2,55.9,55.1,55.7z M50.4,57.2
+	c-0.2,0.3-0.5,0.5-0.8,0.6c-0.3,0.1-0.7,0.2-1.1,0.2c-0.4,0-0.8-0.1-1.2-0.2c-0.3-0.1-0.6-0.4-0.8-0.6c-0.2-0.3-0.4-0.6-0.5-1
+	c-0.1-0.4-0.2-0.8-0.2-1.2c0-0.5,0.1-0.9,0.2-1.3c0.1-0.4,0.3-0.7,0.5-1c0.2-0.3,0.5-0.5,0.8-0.6c0.3-0.1,0.7-0.2,1.1-0.2
+	c0.4,0,0.8,0.1,1.2,0.2c0.3,0.1,0.6,0.4,0.8,0.6c0.2,0.3,0.4,0.6,0.5,1c0.1,0.4,0.2,0.8,0.2,1.2c0,0.5-0.1,0.9-0.2,1.3
+	C50.9,56.6,50.7,56.9,50.4,57.2z M49.8,54.2c0-0.2-0.1-0.4-0.2-0.6c-0.1-0.2-0.3-0.3-0.4-0.4C48.9,53,48.7,53,48.5,53
+	c-0.4,0-0.8,0.2-1,0.5c-0.2,0.3-0.4,0.8-0.4,1.5c0,0.3,0,0.6,0.1,0.8c0.1,0.2,0.1,0.4,0.2,0.6c0.1,0.2,0.3,0.3,0.4,0.4
+	c0.2,0.1,0.4,0.1,0.6,0.1c0.4,0,0.8-0.2,1-0.5c0.2-0.3,0.4-0.8,0.4-1.5C49.9,54.7,49.8,54.4,49.8,54.2z M42.8,55.6l-0.6-0.1v2.4
+	h-1.2v-5.8c0.1,0,0.3,0,0.4-0.1c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.4,0c0.3,0,0.6,0,0.9,0.1
+	c0.3,0.1,0.5,0.1,0.8,0.3c0.2,0.1,0.4,0.3,0.5,0.5c0.1,0.2,0.2,0.5,0.2,0.8c0,0.5-0.1,0.9-0.4,1.2c-0.2,0.3-0.6,0.5-1,0.6l0.4,0.3
+	l1.5,2.2h-1.4L42.8,55.6z M43.8,53.8c0-0.2-0.1-0.4-0.3-0.6c-0.2-0.1-0.4-0.2-0.7-0.2c-0.1,0-0.3,0-0.4,0c-0.1,0-0.2,0-0.3,0v1.6
+	h0.5c0.3,0,0.6-0.1,0.8-0.2C43.7,54.3,43.8,54.1,43.8,53.8z M44,14.4h1.3v5H44V14.4z M42.8,13.2H44v1.2h-1.2V13.2z M37.9,12h4.9v1.2
+	h-4.9V12z M37.9,14.4h3.7v1.2h-3.7V14.4z M42.8,15.7v3.7h-1.2v-3.7H42.8z M37.9,19.4v1.2h-1.2v-1.2H37.9z M40.3,17v2.4h-2.4V17H40.3
+	z M40.4,21.9v2.4h-9.8v-2.4h4.9v-1.3h1.2v1.3H40.4z M35.5,29.3v2.4h-7.3v-7.4h2.4v5H35.5z M40.4,36.7h-3.7v-3.7h3.7V36.7z
+	 M30.6,34.1H33v2.4h-2.4V34.1z M35.5,26.8h4.9v-2.4h2.4v5h-7.3V26.8z M45.2,29.3v9.8h-2.4v-9.8H45.2z M42.8,46.5H28.2v-7.4h14.6
+	V46.5z M40.3,41.5h-9.7V44h9.7V41.5z M25.8,39.1v-7.4h2.4v7.4H25.8z M28.5,52v5.9h-1.2v-3l0.1-1.2h0L27,54.6l-1.3,2.2h-0.4l-1.4-2.2
+	l-0.4-0.9h0l0.2,1.2v3h-1.2V52h1.1l1.7,2.7l0.3,0.6h0l0.3-0.7l1.6-2.7H28.5z M20.8,57c-0.3,0.3-0.6,0.5-1,0.7
+	c-0.4,0.2-0.9,0.3-1.5,0.3c-0.1,0-0.2,0-0.4,0c-0.2,0-0.3,0-0.5,0c-0.2,0-0.3,0-0.5,0c-0.2,0-0.3,0-0.3,0V52c0.1,0,0.3,0,0.4,0
+	c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.4,0c0.6,0,1,0.1,1.4,0.2c0.4,0.1,0.7,0.4,1,0.6c0.3,0.3,0.4,0.6,0.6,0.9
+	c0.1,0.4,0.2,0.8,0.2,1.2c0,0.4-0.1,0.8-0.2,1.1C21.3,56.4,21.1,56.7,20.8,57z M20.2,54.3c0-0.2-0.1-0.4-0.3-0.6
+	c-0.1-0.2-0.3-0.3-0.5-0.5c-0.2-0.1-0.5-0.2-0.9-0.2c-0.1,0-0.3,0-0.4,0c-0.1,0-0.2,0-0.3,0v3.8c0,0,0.1,0,0.1,0c0.1,0,0.1,0,0.2,0
+	c0.1,0,0.1,0,0.2,0c0.1,0,0.1,0,0.1,0c0.4,0,0.6-0.1,0.9-0.2c0.2-0.1,0.4-0.3,0.6-0.4c0.1-0.2,0.2-0.4,0.3-0.6
+	c0.1-0.2,0.1-0.5,0.1-0.7C20.2,54.7,20.2,54.5,20.2,54.3z M11.9,52h3.7v1.1h-2.5v1.3h2.3v1.1h-2.3v1.3h2.6v1.1h-3.8V52z M11.2,57.9
+	H9.8l-1.4-2.3l-0.6-0.1v2.4H6.5v-5.8c0.1,0,0.3,0,0.4-0.1c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.4,0
+	c0.3,0,0.6,0,0.9,0.1s0.5,0.1,0.8,0.3c0.2,0.1,0.4,0.3,0.5,0.5c0.1,0.2,0.2,0.5,0.2,0.8c0,0.5-0.1,0.9-0.4,1.2
+	c-0.2,0.3-0.6,0.5-1,0.6l0.4,0.3L11.2,57.9z M9.4,53.8c0-0.2-0.1-0.4-0.3-0.6C8.9,53.1,8.7,53,8.4,53c-0.1,0-0.3,0-0.4,0
+	c-0.1,0-0.2,0-0.3,0v1.6h0.5c0.3,0,0.6-0.1,0.8-0.2C9.3,54.3,9.4,54.1,9.4,53.8z M32.3,52l2.3,5.9h-1.3l-0.5-1.3h-2l-0.5,1.3h-1.2
+	l2.3-5.9H32.3z M32.4,55.7L32,54.4l-0.2-0.9h0l-0.2,0.9l-0.4,1.2H32.4z M36,51.9c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.4,0
+	c0.6,0,1,0.1,1.4,0.2c0.4,0.1,0.7,0.4,1,0.6c0.3,0.3,0.4,0.6,0.6,0.9c0.1,0.4,0.2,0.8,0.2,1.2c0,0.4-0.1,0.8-0.2,1.1
+	c-0.1,0.4-0.3,0.7-0.6,1c-0.3,0.3-0.6,0.5-1,0.7c-0.4,0.2-0.9,0.3-1.5,0.3c-0.1,0-0.2,0-0.4,0c-0.2,0-0.3,0-0.5,0
+	c-0.2,0-0.3,0-0.5,0c-0.2,0-0.3,0-0.3,0V52c0.1,0,0.3,0,0.4,0C35.7,52,35.8,51.9,36,51.9z M36.3,56.9c0,0,0.1,0,0.1,0
+	c0.1,0,0.1,0,0.2,0c0.1,0,0.1,0,0.2,0c0.1,0,0.1,0,0.1,0c0.4,0,0.6-0.1,0.9-0.2c0.2-0.1,0.4-0.3,0.6-0.4c0.1-0.2,0.2-0.4,0.3-0.6
+	c0.1-0.2,0.1-0.5,0.1-0.7c0-0.2,0-0.4-0.1-0.6c0-0.2-0.1-0.4-0.3-0.6c-0.1-0.2-0.3-0.3-0.5-0.5C37.6,53.1,37.3,53,37,53
+	c-0.1,0-0.3,0-0.4,0c-0.1,0-0.2,0-0.3,0V56.9z"></path>
+</svg></a>
+
+        <a href="http://habrahabr.ru/sandbox/79829/#" class="scroll_to_up" id="scroll_to_top" title="Наверх"></a>
+    </div>
+    <div class="nav_tabs_content ">
+
+        <div class="nav_tab hidden" id="menu_tab">
+            <div class="title">Разделы</div>
+            <form action="http://habrahabr.ru/search/" method="get" class="global_search_form">
+                <div>
+                    <input type="text" name="q" placeholder="Поиск">
+                </div>
+            </form>
+            <div class="menu">
+                <a href="http://habrahabr.ru/posts/top/">Публикации</a>
+                <a href="http://habrahabr.ru/hubs/">Хабы</a>
+                <a href="http://habrahabr.ru/companies/">Компании</a>
+                <a href="http://habrahabr.ru/users/">Пользователи</a>
+                <a href="http://habrahabr.ru/sandbox/">Песочница</a>
+                <div class="line"></div>
+                <a href="http://toster.ru/" class="new_window">Q&amp;A</a>
+                <a href="https://moikrug.ru/" class="new_window">Вакансии</a>
+
+
+
+
+            </div>
+
+                
+
+                        <div class="line"></div>
+                        <div class="title">Спецпроекты</div>
+                        <div class="menu">
+
+                        <a href="http://bit.ly/1hOeReu" target="_blank">DIY сообщества</a>
+
+                        <a href="http://bit.ly/1NXPVgw" target="_blank">Трансформеры</a>
+
+                        <a href="http://special.habrahabr.ru/mastercard/paypass/" target="_blank">AlfaPay</a>
+                        </div>
+
+
+        </div>
+
+            <div class="nav_tab hidden" id="user_tab">
+                <div class="title"><a href="http://habrahabr.ru/users/kotovoin/">Kotovoin</a></div>
+                    <div class="text">У вас 11 голосов за карму и публикации, и еще 22 за комментарии</div>
+                <div class="menu">
+                    <a href="http://habrahabr.ru/">Моя лента</a>
+                    <a href="http://habrahabr.ru/users/kotovoin/">Мой профиль</a>
+                    <a href="http://habrahabr.ru/users/kotovoin/topics/">Мои публикации</a>
+                    <a href="http://habrahabr.ru/users/kotovoin/comments/">Мои комментарии</a>
+                        <a href="http://habrahabr.ru/conversations/">Мои диалоги <span class="count navbar_count_new_messages"></span></a>
+                    <a href="http://habrahabr.ru/users/Kotovoin/favorites/">Моё избранное</a>
+                </div>
+
+                    
+
+                            <div class="line"></div>
+                            <div class="title">Спецпроекты</div>
+                            <div class="menu">
+
+                        <a href="http://bit.ly/1hOeReu">DIY сообщества</a>
+
+                        <a href="http://bit.ly/1NXPVgw">Трансформеры</a>
+
+                        <a href="http://special.habrahabr.ru/mastercard/paypass/">AlfaPay</a>
+                            </div>
+
+
+            </div>
+            <div class="nav_tab hidden" id="tracker_tab">
+                <div class="title">Трекер</div>
+                <div class="menu">
+                    <a href="http://habrahabr.ru/tracker/">Публикации <span class="count navbar_count_tracker_posts"></span></a>
+                    <a href="http://habrahabr.ru/tracker/subscribers/">Подписчики <span class="count navbar_count_tracker_followers"></span></a>
+                    <a href="http://habrahabr.ru/tracker/mentions/">Упоминания <span class="count navbar_count_tracker_mentions"></span></a>
+                    <a href="http://habrahabr.ru/tracker/apps/">Приложения <span class="count navbar_count_tracker_apps"></span></a>
+                </div>
+
+                    
+
+                            <div class="line"></div>
+                            <div class="title">Спецпроекты</div>
+                            <div class="menu">
+
+                        <a href="http://bit.ly/1hOeReu">DIY сообщества</a>
+
+                        <a href="http://bit.ly/1NXPVgw">Трансформеры</a>
+
+                        <a href="http://special.habrahabr.ru/mastercard/paypass/">AlfaPay</a>
+                            </div>
+
+
+            </div>
+            <div class="nav_tab hidden" id="settings_tab">
+                <div class="title">Настройки</div>
+                <div class="menu">
+                    <a href="https://habrahabr.ru/auth/settings/profile/">Профиль</a>
+                    <a href="https://habrahabr.ru/auth/settings/account/" class="new_window">Аккаунт</a>
+                    <a href="https://habrahabr.ru/auth/settings/privacy/">Приватность</a>
+                    <a href="https://habrahabr.ru/auth/settings/notifications/">Уведомления</a>
+                    <a href="https://habrahabr.ru/auth/apps/">Приложения</a>
+                    <a href="https://habrahabr.ru/auth/settings/others/">Разные</a>
+                    <a href="http://habrahabr.ru/logout/Kotovoin/1260357715/" class="exit">Выйти</a>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+      <div class="inner">
+
+
+
+          
+
+
+
+        
+
+        
+
+        
+
+  <div class="content_left">
+	  
+<table class="menu">
+    <tbody><tr>
+        <td class="item  active">
+            <a href="http://habrahabr.ru/sandbox/"><span class="name">Ожидают приглашение</span></a>
+        </td>
+        <td class="item ">
+            <a href="http://habrahabr.ru/sandbox/invited/"><span class="name">Получили приглашение</span></a>
+        </td>
+    </tr>
+</tbody></table>
+<div class="submenu ">
+
+</div>
+<div class="clear"></div>
+
+
+
+			
+<div class="post" id="post_79829">
+    <div class="published"> 9 марта 2014 в 18:53</div>
+
+    <h1 class="title">
+        
+
+            <span class="post_title">Часть 1. HID устройсво для вращения камеры</span>
+
+
+                    <a href="http://habrahabr.ru/sandbox/" class="flag flag_sandbox" title="Перейти в песочницу">Ожидает приглашение</a>
+
+
+         <a title="Редактировать публикацию" class="edit" href="http://habrahabr.ru/sandbox/edit/79829/"><img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/topic_edit.gif" width="16" height="16" alt="Редактировать"></a>
+    </h1>
+
+    <div class="hubs">
+		<a href="" class="hub " title="Вы не подписаны на этот хаб"></a>
+</div>
+
+
+    <div class="content html_format">
+        <img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/f7da8925290a4595a83d11899d73f16b.jpg" alt="image"><br>
+В этих статьях я расскажу о своей разработке для поворота Веб-камеры по горизонтали и вертикале на 360 градусов. В этой части речь пойдёт о электро-механической части устройства.(Осторожно много картинок)<br>
+<a name="habracut"></a><br>
+Устройство для поворота Веб-камеры<br>
+Для движения камеры понадобиться два двигателя и понижающие редукторы, для того что бы камера плавно поворачивала и хватало бы силы двигателей. Управление двигателями непосредственно через USB порт не возможно, потому необходим микроконтроллер и драйвер двигателя (микроконтроллер не рассчитан на управление силовых контуров). Так же необходимо написать програмы: прошивку для микроконтроллера, драйвер, ПО-хоста и ПО-клиента (Для передачи видео и аудио сигнала). <br>
+<br>
+Материалы<br>
+Редуктор и двигатель я взял с детской игрушки «Ночной фонарик» китайского производителя.<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/b019d04c3a7f478cabd134beaefbd95d.jpg" alt="image"> <br>
+Микроконтроллер решил взять с готовой макетной платой. Выбор пал на «Макетная плата AVR-USB-TINY45», купленная <a href="http://microsin.ru/">тут</a>.<br>
+<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/ab7ff2bf42c64bc1947256d11ee24bb8.jpg" alt="image"><br>
+Для прошивки микроконтроллера я преобрёл програматор USBASP.<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/be9556a0c3ff414189cf50d666ad6ae0.jpg" alt="image"><br>
+Под него пришлось сделать переходник 10PIN в 6PIN(Cхема была взята <a href="http://we.easyelectronics.ru/podkassetnik/perehodnik-adapter-10-6-pin-dlya-vnutrishemnogo-programmirovaniya-mikrokontrollerov-avr.html">отсюда</a>)<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/bf079ad9204e4c94af15d06ca8f8050d.jpg" alt="image"><br>
+Для того что бы избежать накручивания кабеля я хотел использовать подшипники (Припаять один провод до внешнего кольца, а другой до внутреннего). Но оказалось, что при вращении камеры на долю секунды обрывалась связь камеры с компьютером, но этого было достаточно, что бы ОС фиксировало это как отсоединение камеры. Перепробовав множество вариантов с подшипниками, я пришёл к выводу, что они для этой цели не годятся. <br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/a40c1f3f3d364ec38488cb8dac3335e9.jpg" alt="image"><br>
+Вместо подшипников я пробовал применить «скользящий» контакт. Обклеил диэлектрик медной фольгой и прорисовал дорожки, припаял к ним провода, сделал «щеточки». Этот вариант был ещё хуже.<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/e883931c85af4db1a17487ac0192a144.jpg" alt="image"><br>
+Пришлось воспользоваться помощью со стороны. По заказу были изготовлены валы, держатели, и идеально проточенные латунные кольца. Мне оставалось только изготовить «щёточки» и собрать саму установку. <br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/292bf5d1bccc481989b86cf60446252e.jpg" alt="image"><br>
+Сборку установки можно понять с фотографий.<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/065d81111bbd4d44970bda6d23b2ef22.jpg" alt="image"><br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/a5bdf8fee5304e398f78c9adc56287f0.jpg" alt="image"><br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/5aa20cfda91f4493bcc54bf5b7c4580f.jpg" alt="image"><br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/0a998ca722954387a3ebfba3c9ea2a09.jpg" alt="image"><br>
+Микроконтроллеры не предназначены для питания силовых цепей, поэтому необходим драйвер, который будет питать двигатели, а микроконтроллер в свою очередь управляет драйвером (Использую драйвер L293D)<br>
+<img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/a291828955844be7b2b9ee6095554c31.jpg" alt="image"><br>
+Для того что бы вокруг проводника не образовывалось электромагнитное поле, и при включении двигателя для вращения камеры в вертикальном положении не происходило её отключение, я в одном из валов проложил проводник с экраном. Для уменьшения вредного воздействия внешнего излучения я обмотал стойки алюминиевой фольгой.<br>
+<br>
+P.S. К сожалению, я не смог достичь стабильной работы камеры, поэтому пришлось отказаться от вращения на 360 градусов в этой модели. Но идея с кольцами правильная, достичь стабильности в работе камеры мне помешало не продуманное использование клея, которым я производил фиксацию колец на валу.
+
+        <div class="clear"></div>
+    </div>
+
+        <div class="tags">
+            Сделал сам, веб-турель, микроконтроллер ATtiny85, драйвер двигателей
+        </div>
+
+    <div class="infopanel infopanel_sandbox" id="infopanel_post_79829">
+
+  <div class="sandbox_author">
+    8&lt;
+  </div>
+
+    <div class="share">
+    <div class="twitter">
+      <a href="http://twitter.com/intent/tweet?text=%D0%A7%D0%B0%D1%81%D1%82%D1%8C+1.+HID+%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D0%B2%D0%BE+%D0%B4%D0%BB%D1%8F+%D0%B2%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F+%D0%BA%D0%B0%D0%BC%D0%B5%D1%80%D1%8B+%23habr+http://habr.ru/sandbox/79829/" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+    </div>
+    <div class="vkontakte">
+      <a href="http://vkontakte.ru/share.php?url=http://habr.ru/sandbox/79829/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, &#39;Опубликовать ссылку во Вконтакте&#39;, &#39;width=800,height=300&#39;); return false"></a>
+    </div>
+    <div class="facebook">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://habr.ru/sandbox/79829/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, &#39;Опубликовать ссылку в Facebook&#39;, &#39;width=640,height=436,toolbar=0,status=0&#39;); return false"></a>
+    </div>
+    <div class="googleplus">
+      <a href="https://plus.google.com/share?url=http://habr.ru/sandbox/79829/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, &#39;Опубликовать ссылку в Google Plus&#39;, &#39;width=800,height=300&#39;); return false"></a>
+    </div>
+    </div>
+
+  <div class="moderate">
+    <div class="buttons">
+
+
+    </div>
+  </div>
+
+</div>
+<div class="clear"></div>
+
+
+    
+</div>
+
+			
+  </div>
+  <div class="sidebar_right">
+      
+			<div class="block sandbox_text sandbox_text_about">
+  <div class="title">Что происходит?</div>
+  <p>В «Песочницу» попадают топики от людей, желающих получить приглашение на Хабр. Написал хороший топик — получил приглашение.</p>
+  <p>Все публикации анонимны. Псевдонимы показываются случайным образом. Приглашение может дать тот, у кого оно есть.</p>
+</div>
+
+      <div class="banner_300x500">
+    <div id="adriver_banner_1863387959"></div>
+
+    <script type="text/javascript">
+        function show_bn1_block(name, url){
+            console.log('show' + name);
+            if( typeof(name) !== 'undefined'){
+                $.get('/html/'+name+'/1442412683/', function(html){
+                    $('#adriver_banner_1863387959').html(html);
+                    if( typeof(url) !== 'undefined'){
+                        $('.'+name+'_inner_banner .block_url').attr('href', url);
+                    }
+                })
+            }
+        }
+
+        $(function(){
+
+            // конвертирут кириллицу в cp1251
+            // doc: http://www.adriver.ru/doc/edu-n/pub/settargt/standtrgt/scentrgt/scentrgt.html#9
+            function esc(s){
+                for(var i=0,l=s.length,r='';i<l;i++){
+                    var c = s.charCodeAt(i);r += String.fromCharCode(c>1039&&c<1104 ? c-848 : c==1105 ? 184 : c==1025 ? 168 : c);
+                }
+                return r;
+            }
+
+            var keyword = '';
+
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+
+
+            var custom = {4:ar_duo1};
+
+             new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+
+
+
+
+            var check_scroll_position10 = function() {
+                var height = $(window).height();
+                var scrollTop = $(window).scrollTop();
+                var blockTop = $('#adriver_banner_1863387959').position().top;
+                var show = scrollTop < (blockTop + 900) && typeof(bn2Showed) != 'undefined';
+                if( show ){
+                    $( window ).off('scroll', check_scroll_position10);
+                    $( window ).trigger('show_bn10');
+                }
+            };
+
+            $( window ).on('show_bn10', function(){
+                $('#adriver_banner_1863387959').html('');
+                var pz = Math.floor(Math.random()*3+1);
+                var uu = new adriver("adriver_banner_1863387959", { sid: 176776, bt: 52, bn: 1, pz: pz});
+                uu.reload();
+            });
+
+            $( window ).on('scroll', check_scroll_position10);
+
+        }());
+
+
+
+
+    </script>
+</div>
+
+			<div class="block sandbox_text sandbox_text_moderation">
+  <div class="title">О модерации</div>
+  <p>В разделе действует премодерация: перед публикацией все материалы проходят через заботливые руки. </p>
+
+  <p>С большой вероятностью премодерацию не пройдут:</p>
+
+  <p>— новости и&nbsp;анонсы;</p>
+  <p>— вопросы и&nbsp;просьбы: для таких постов стоит использовать <a href="https://toster.ru/" target="_blank">toster.ru</a>;</p>
+  <p>— статьи, уже опубликованные на&nbsp;других сайтах;</p>
+  <p>— статьи без правильно расставленных знаков препинания, со&nbsp;смайликами, с&nbsp;обилием восклицательных знаков, повсеместным выделением отдельных слов и&nbsp;другим бросающимся в&nbsp;глаза форматированием текста;</p>
+  <p>— обзоры софта, железа, сервисов и&nbsp;т.д.: такие штуки лучше публиковать на&nbsp;<a href="http://geektimes.ru/" target="_blank">geektimes.ru</a>;</p>
+  <p>— жалобы на&nbsp;компании и&nbsp;предоставляемые услуги;</p>
+  <p>— рекламные и&nbsp;PR-публикации;</p>
+  <p>— куски программного кода без комментариев и&nbsp;сопроводительного текста;</p>
+  <p>— статьи, не имеющие отношения к тематике Хабра.</p>
+</div>
+
+  </div>
+  <div class="clear"></div>
+
+
+
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/259559/" class="grey" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;posts_rotation_block&#39;); }">Расследование одного взлома или как быстро и просто потратить миллиард</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/258595/" class="grey" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;posts_rotation_block&#39;); }">Печальное состояние сисадмина в эпоху контейнеров</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/261725/" class="grey" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;posts_rotation_block&#39;); }">Архитектура Skype изнутри и его транспортные протоколы</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+        
+        <div class="yadir-footer" id="yandex_ad"><yatag class="yap-yandex_ad-horizontal yap-reset" id="yap-yandex_ad-horizontal"><yatag class="yap-layout yap-main yap-font-size yap-layout_type_wide yap-layout_block_horizontal"><yatag class="yap-layout__logo yap-logo yap-logo-bg-color"><yatag class="yap-logo-block"><yatag class="yap-logo-block__position yap-logo-position"><a class="yap-logo-block__text yap-logo-text yap-logo-color yap-logo-bg-color" target="_blank" href="https://direct.yandex.ru/?partner">Яндекс.Директ</a></yatag><yatag class="yap-logo-block__arrow yap-logo-arrow"></yatag></yatag></yatag><yatag class="yap-layout__wrapper yap-list-wrapper yap-font-family yap-border-color"><table class="yap-layout__items yap-list"><tbody><tr><td data-id="785094772" class="yap-layout__item yap-item yap-border-color yap-layout__item_nth_1 yap-layout__item_picture_true yap-item-has-picture "><yatag class="yap-layout__outer"><yatag class="yap-layout__inner yap-item-inner"><yatag class="yap-layout__picture" style="width: 90px"><yatag class="yap-picture-block"><a target="_blank" href="http://an.yandex.ru/count/8pcJ5p1pt0O40000ZhsHc5y5XP9p99K2cm5kGxS2Am68jqbrSGE9gWZO0PZ__________m-UiG0000ITfDLD2BhsUeav-2cdV0YcDegqXxdi0hszvYSZ0we1fQpAq0Myfk7M0f6wD5u338-yFR9z1P-xz_0b29EF29bYGeoV126sa1iXjPYM6w2UuNIldmGXiv2eORIObXkKcyKVfu-hgAHWJ2YiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcarKq8k_ccIuNz0Z0M0i7__________m_5Zm_DkUETx0BEjtRqAGJJ0daR?test-tag=306186433&stat-id=1073741825" class="yap-picture-block__link" style="width: 90px !important;height: 80px !important;"><img class="yap-picture-block__image yap-image" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/y80" alt="" style="width: 90px !important;max-width: 90px !important;height: 80px !important;"></a></yatag></yatag><yatag class="yap-layout__content"><yatag class="yap-layout__title"><yatag class="yap-title-block yap-title"><a href="http://an.yandex.ru/count/8pcJ5p1pt0O40000ZhsHc5y5XP9p99K2cm5kGxS2Am68jqbrSGE9gWZO0PZ__________m-UiG0000ITfDLD2BhsUeav-2cdV0YcDegqXxdi0hszvYSZ0we1fQpAq0Myfk7M0f6wD5u338-yFR9z1P-xz_0b29EF29bYGeoV126sa1iXjPYM6w2UuNIldmGXiv2eORIObXkKcyKVfu-hgAHWJ2YiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcarKq8k_ccIuNz0Z0M0i7__________m_5Zm_DkUETx0BEjtRqAGJJ0daR?test-tag=306186433&stat-id=1073741825" target="_blank" class="yap-title-block__text yap-title-text yap-title-font-size yap-title-color yap-title-hover-color">Система Управления Очередью(СУО)</a></yatag></yatag><yatag class="yap-layout__body yap-text"><a class="yap-body-text yap-text-color"><wbr>Решение для организации очерёдности посетителей к предоставляемым услугам.</a></yatag><yatag class="yap-layout__contacts"><yatag class="yap-contacts"><yatag class="yap-contacts__item yap-contacts__item_domain"><a class="yap-domain yap-domain-text" target="_blank" href="http://an.yandex.ru/count/8pcJ5p1pt0O40000ZhsHc5y5XP9p99K2cm5kGxS2Am68jqbrSGE9gWZO0PZ__________m-UiG0000ITfDLD2BhsUeav-2cdV0YcDegqXxdi0hszvYSZ0we1fQpAq0Myfk7M0f6wD5u338-yFR9z1P-xz_0b29EF29bYGeoV126sa1iXjPYM6w2UuNIldmGXiv2eORIObXkKcyKVfu-hgAHWJ2YiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcarKq8k_ccIuNz0Z0M0i7__________m_5Zm_DkUETx0BEjtRqAGJJ0daR?test-tag=306186433&stat-id=1073741825">ccrs.com.ua</a></yatag><yatag class="yap-contacts__item"><a class="yap-contacts__item-link" target="_blank" href="http://an.yandex.ru/count/8pcJ5zh5QCy40000ZhsHc5y5XP9p99K2cm5kGxS2Am68jqbrSGE9gWZO0PZ__________m-UiG0000ITfDLD2BhsUeav-2cdV0YcDegqXxdi0hszvYSZ0we7fQpAq0Myfk7M0f6wD5u338-yFR9z1P-xz_0b29EF29bYGeoV126sa1iXjPYM6w2UuNIldmGXiv2eORIObXkKcyKVfu-hgAHWJ2YiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcarKq8k_ccIuNz0Z0M0i7__________m_5Zm_DkUETx0BEjtRqAGJJ0daR?test-tag=306186433&stat-id=1073741825">Адрес&nbsp;и&nbsp;телефон</a></yatag></yatag></yatag></yatag><yatag class="yap-layout__adtune"><yatag class="yap-adtune yap-adtune_touch_false yap-adtune_oldie_false"><yatag class="yap-adtune__button yap-adtune-button"><yatag class="yap-adtune__image"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="8px" viewBox="0 0 14 14"><polygon points="14,0.7 13.3,0 7,6.299 0.7,0 0,0.7 6.3,7 0,13.299 0.7,14 7,7.7 13.3,14 14,13.299 7.7,7"></polygon></svg></yatag><yatag class="yap-adtune__tooltip"><yatag class="yap-adtune__tooltip-text">Скрыть&nbsp;объявление</yatag></yatag></yatag></yatag></yatag></yatag><yatag class="yap-layout__adtune-message"><yatag class="yap-adtune-message"><table class="yap-adtune-message__table"><tbody><tr><td class="yap-adtune-message__text">Спасибо. Объявление скрыто.</td></tr></tbody></table></yatag></yatag></yatag></td><td data-id="347630999" class="yap-layout__item yap-item yap-border-color yap-layout__item_nth_2 yap-layout__item_picture_false  "><yatag class="yap-layout__outer"><yatag class="yap-layout__inner yap-item-inner"><yatag class="yap-layout__content"><yatag class="yap-layout__title"><yatag class="yap-title-block yap-title"><a href="http://an.yandex.ru/count/8pcJ5ypBhcu40000ZhsHc5y5XP9p99K2cm5kGxS2Am4oYBmetq03YQsarG6O__________yFdh400004dQF0E16wzdg9EVWfftm8fZEAjzc6Im6ziT7uaG6g0QMaofW3aReqNWCCZxGNDKyFdxaeO_KFauy8cM92Z9947xQGMH-rc1yQe9ArBA-IH1-pc5ebj9WV6fITSHQdY2Yegjll3Amrhl9cXVfktDuV1R2m4j6F1R41ie1mkQF0E16x-QPBXVq2C1O2mV__________3yG1nOmFp0NJ0dqP?test-tag=306186433&stat-id=1073741825" target="_blank" class="yap-title-block__text yap-title-text yap-title-font-size yap-title-color yap-title-hover-color">Кабель опт</a></yatag></yatag><yatag class="yap-layout__body yap-text"><a class="yap-body-text yap-text-color"><wbr>Купить силовой кабель оптом. Низкая цена. Наличие на&nbsp;складе</a></yatag><yatag class="yap-layout__contacts"><yatag class="yap-contacts"><yatag class="yap-contacts__item yap-contacts__item_domain"><a class="yap-domain yap-domain-text" target="_blank" href="http://an.yandex.ru/count/8pcJ5ypBhcu40000ZhsHc5y5XP9p99K2cm5kGxS2Am4oYBmetq03YQsarG6O__________yFdh400004dQF0E16wzdg9EVWfftm8fZEAjzc6Im6ziT7uaG6g0QMaofW3aReqNWCCZxGNDKyFdxaeO_KFauy8cM92Z9947xQGMH-rc1yQe9ArBA-IH1-pc5ebj9WV6fITSHQdY2Yegjll3Amrhl9cXVfktDuV1R2m4j6F1R41ie1mkQF0E16x-QPBXVq2C1O2mV__________3yG1nOmFp0NJ0dqP?test-tag=306186433&stat-id=1073741825">progress-t.com.ua</a></yatag></yatag></yatag></yatag><yatag class="yap-layout__adtune"><yatag class="yap-adtune yap-adtune_touch_false yap-adtune_oldie_false"><yatag class="yap-adtune__button yap-adtune-button"><yatag class="yap-adtune__image"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="8px" viewBox="0 0 14 14"><polygon points="14,0.7 13.3,0 7,6.299 0.7,0 0,0.7 6.3,7 0,13.299 0.7,14 7,7.7 13.3,14 14,13.299 7.7,7"></polygon></svg></yatag><yatag class="yap-adtune__tooltip"><yatag class="yap-adtune__tooltip-text">Скрыть&nbsp;объявление</yatag></yatag></yatag></yatag></yatag></yatag><yatag class="yap-layout__adtune-message"><yatag class="yap-adtune-message"><table class="yap-adtune-message__table"><tbody><tr><td class="yap-adtune-message__text">Спасибо. Объявление скрыто.</td></tr></tbody></table></yatag></yatag></yatag></td><td data-id="501244322" class="yap-layout__item yap-item yap-border-color yap-layout__item_nth_3 yap-layout__item_picture_true yap-item-has-picture "><yatag class="yap-layout__outer"><yatag class="yap-layout__inner yap-item-inner"><yatag class="yap-layout__picture" style="width: 90px"><yatag class="yap-picture-block"><a target="_blank" href="http://an.yandex.ru/count/8pcJ5wOlA5S40000ZhsHc5y5XP9p99K2cm5kGxS2Am4pYBeNYF04YQS1tWgOXnEUiG0000ITdBWIklPwYJduAQTy2APEYh8Q1ju1lRuMo2O2gW6bhhfu1BohdNW4aReqNWCCZxg8lj8FdxwRvTeBauy8cM92Z9qn3xQGF0-raB8Ce9ft6w-TCG-paFCMj92o39IIW0cdWYYei41PSmUiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcSk1Ax-QPBXVq2C1O2mV__________3yMF3ysn6WRU0SwpFUcr0jC2UXe0?test-tag=306186433&stat-id=1073741825" class="yap-picture-block__link" style="width: 90px !important;height: 115px !important;"><img class="yap-picture-block__image yap-image" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/x90" alt="" style="width: 90px !important;max-width: 90px !important;height: 115px !important;"></a></yatag></yatag><yatag class="yap-layout__content"><yatag class="yap-layout__title"><yatag class="yap-title-block yap-title"><a href="http://an.yandex.ru/count/8pcJ5wOlA5S40000ZhsHc5y5XP9p99K2cm5kGxS2Am4pYBeNYF04YQS1tWgOXnEUiG0000ITdBWIklPwYJduAQTy2APEYh8Q1ju1lRuMo2O2gW6bhhfu1BohdNW4aReqNWCCZxg8lj8FdxwRvTeBauy8cM92Z9qn3xQGF0-raB8Ce9ft6w-TCG-paFCMj92o39IIW0cdWYYei41PSmUiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcSk1Ax-QPBXVq2C1O2mV__________3yMF3ysn6WRU0SwpFUcr0jC2UXe0?test-tag=306186433&stat-id=1073741825" target="_blank" class="yap-title-block__text yap-title-text yap-title-font-size yap-title-color yap-title-hover-color">Мобильные телефоны в&nbsp;Розетке!</a></yatag></yatag><yatag class="yap-layout__body yap-text"><a class="yap-body-text yap-text-color"><wbr>516 моделей мобильных телефонов и смартфонов! Гарантия. Доставка по Украине</a></yatag><yatag class="yap-layout__contacts"><yatag class="yap-contacts"><yatag class="yap-contacts__item yap-contacts__item_domain"><a class="yap-domain yap-domain-text" target="_blank" href="http://an.yandex.ru/count/8pcJ5wOlA5S40000ZhsHc5y5XP9p99K2cm5kGxS2Am4pYBeNYF04YQS1tWgOXnEUiG0000ITdBWIklPwYJduAQTy2APEYh8Q1ju1lRuMo2O2gW6bhhfu1BohdNW4aReqNWCCZxg8lj8FdxwRvTeBauy8cM92Z9qn3xQGF0-raB8Ce9ft6w-TCG-paFCMj92o39IIW0cdWYYei41PSmUiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcSk1Ax-QPBXVq2C1O2mV__________3yMF3ysn6WRU0SwpFUcr0jC2UXe0?test-tag=306186433&stat-id=1073741825">rozetka.com.ua</a></yatag><yatag class="yap-contacts__item"><a class="yap-contacts__item-link" target="_blank" href="http://an.yandex.ru/count/8pcJ5qoPd9u40000ZhsHc5y5XP9p99K2cm5kGxS2Am4pYBeNYF04YQS1tWgOXnEUiG0000ITdBWIklPwYJduAQTy2APEYh8Q1ju1lRuMo2O2gWUbhhfu1BohdNW4aReqNWCCZxg8lj8FdxwRvTeBauy8cM92Z9qn3xQGF0-raB8Ce9ft6w-TCG-paFCMj92o39IIW0cdWYYei41PSmUiDQxoPeNwRjpU7mMmi1BHZmMn0RA0KhcSk1Ax-QPBXVq2C1O2mV__________3yMF3ysn6WRU0SwpFUcr0jC2UXe0?test-tag=306186433&stat-id=1073741825">Адрес&nbsp;и&nbsp;телефон</a></yatag></yatag></yatag></yatag><yatag class="yap-layout__adtune"><yatag class="yap-adtune yap-adtune_touch_false yap-adtune_oldie_false"><yatag class="yap-adtune__button yap-adtune-button"><yatag class="yap-adtune__image"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="8px" viewBox="0 0 14 14"><polygon points="14,0.7 13.3,0 7,6.299 0.7,0 0,0.7 6.3,7 0,13.299 0.7,14 7,7.7 13.3,14 14,13.299 7.7,7"></polygon></svg></yatag><yatag class="yap-adtune__tooltip"><yatag class="yap-adtune__tooltip-text">Скрыть&nbsp;объявление</yatag></yatag></yatag></yatag></yatag></yatag><yatag class="yap-layout__adtune-message"><yatag class="yap-adtune-message"><table class="yap-adtune-message__table"><tbody><tr><td class="yap-adtune-message__text">Спасибо. Объявление скрыто.</td></tr></tbody></table></yatag></yatag></yatag></td></tr></tbody></table></yatag></yatag></yatag></div>
+<script type="text/javascript">
+  (function(w, d, n, s, t) {
+    w[n] = w[n] || [];
+    w[n].push(function() {
+      Ya.Direct.insertInto(149298, "yandex_ad", {
+        stat_id: 1,
+        ad_format: "direct",
+        font_size: 1,
+        type: "horizontal",
+        border_type: "block",
+        limit: 3,
+        title_font_size: 3,
+        links_underline: true,
+        site_bg_color: "FFFFFF",
+        header_bg_color: "EBEAEA",
+        border_color: "EBEAEA",
+        title_color: "66B2FF",
+        url_color: "333333",
+        text_color: "333333",
+        hover_color: "66B2FF",
+        no_sitelinks: true
+      });
+    });
+    t = d.getElementsByTagName("script")[0];
+    s = d.createElement("script");
+    s.src = "//an.yandex.ru/system/context.js";
+    s.type = "text/javascript";
+    s.async = true;
+    t.parentNode.insertBefore(s, t);
+  })(window, document, "yandex_context_callbacks");
+</script>
+
+
+
+        <div class="clear"></div>
+
+        <div class="footer_panel">
+          <div id="footer">
+  <dl class="user">
+    <dt><a href="http://habrahabr.ru/users/Kotovoin/">Kotovoin</a></dt>
+    <dd><a href="http://habrahabr.ru/feed/">Лента</a></dd>
+    <dd><a href="http://habrahabr.ru/tracker/">Трекер</a></dd>
+      <dd><a href="http://habrahabr.ru/topic/add/">Написать</a></dd>
+      <dd><a href="http://habrahabr.ru/conversations/">Диалоги</a></dd>
+      <dd><a href="https://habrahabr.ru/auth/settings/">Настройки</a></dd>
+      <dd><a href="http://habrahabr.ru/ppa/">ППА</a></dd>
+  </dl>
+  <dl>
+    <dt>Разделы</dt>
+    <dd><a href="http://habrahabr.ru/posts/top/">Публикации</a></dd>
+    <dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+    <dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+    <dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+    <dd><a href="http://toster.ru/?_aa=press_anykey">Q&amp;A</a></dd>
+    <dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+
+  </dl>
+  <dl>
+    <dt>Инфо</dt>
+    <dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+    <dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+    <dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+    <dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+  </dl>
+  <dl>
+    <dt>Услуги</dt>
+    <dd><a href="http://special.habrahabr.ru/advertising/">Реклама</a></dd>
+      <dd><a href="http://special.habrahabr.ru/">Спецпроекты</a></dd>
+      <dd><a href="http://special.habrahabr.ru/corporate/">Тарифы</a></dd>
+      <dd><a href="http://special.habrahabr.ru/content/">Контент</a></dd>
+      <dd><a href="http://special.habrahabr.ru/workshops/">Вебинары</a></dd>
+  </dl>
+
+  <dl>
+    <dt>Разное</dt>
+    <dd><a href="http://habrahabr.ru/apps/">Приложения</a></dd>
+    <dd><a href="http://habrahabr.ru/special/testdrive/">Тест-драйвы</a></dd>
+    <dd><a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=482836&bt=21&pid=1727881&bid=3951078&bn=3951078&rnd=1676524432">Помощь стартапам</a></dd>
+      <dd><a href="http://special.habrahabr.ru/#hr">Работа в IT</a></dd>
+  </dl>
+  <div class="copyright">
+
+    <div class="about">
+      <a href="http://tmtm.ru/">© TM</a>
+
+      <br><br>
+      <a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+          <a href="http://m.habrahabr.ru/?mobile=yes">Мобильная версия</a><br><br>
+
+
+      <div class="social_accounts">
+        <a href="https://twitter.com/habrahabr" class="tw"></a>
+        <a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+        <a href="http://vk.com/habr" class="vk"></a>
+        <!-- <a href="" class="gp"></a> //-->
+      </div>
+
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+  // global vars
+  var g_base_url = 'habrahabr.ru';
+  var g_show_xpanel = true;
+  var g_base_fullurl = 'http://habrahabr.ru/';
+  var g_is_guest = true;
+  var g_user_login = 'Kotovoin';
+  var g_user_id = 572553;
+  var g_user_avatar = '//habrahabr.ru/i/avatars/stub-user-middle.gif';   
+</script> 
+
+      <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/shortcuts.js"></script>
+
+    <script type="text/javascript" src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/global_footer_main.js"></script>
+
+    
+    
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+<!-- adriver counter //-->
+<span style="position:absolute;left:-9999px;bottom:-20px">
+  <img src="./Часть 1. HID устройсво для вращения камеры _ Песочница _ Хабрахабр_files/rle.cgi" width="0" height="0" alt="" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 1px 1px;">
+</span>
+<!-- adriver counter end //-->
+
+
+    <!-- Facebook Pixel Code -->
+<script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '322477921209238');
+    fbq('track', 'PageView');
+</script>
+<noscript>&lt;img height="1" width="1" style="display:none"
+               src="https://www.facebook.com/tr?id=322477921209238&amp;ev=PageView&amp;noscript=1"
+        /&gt;</noscript>
+<!-- End Facebook Pixel Code -->
+
+    
+
+    <!-- Хабр не резиновый! -->
+  
+
+<div id="AutocompleteContainter_c57de" style="position: absolute; z-index: 9999; top: 0px; left: 0px;"><div class="autocomplete-w1"><div class="autocomplete" id="Autocomplete_c57de" style="display: none; width: 300px; max-height: 400px;"></div></div></div><div id="AutocompleteContainter_2bb2a" style="position: absolute; z-index: 9999; top: 0px; left: 0px;"><div class="autocomplete-w1"><div class="autocomplete" id="Autocomplete_2bb2a" style="display: none; width: 300px; max-height: 400px;"></div></div></div></body></html>
